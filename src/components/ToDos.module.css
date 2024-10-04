@@ -1,0 +1,11 @@
+.items {
+    list-style: none;
+    margin: 2rem auto;
+    padding: 0;
+    width: 100%;
+
+}
+.layout{
+    margin:  0 auto;
+    width: 550px;
+}
