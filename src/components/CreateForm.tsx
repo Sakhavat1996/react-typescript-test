@@ -1,14 +1,15 @@
-import React, { useRef } from "react";
-import classes from './form.module.css'
+import React, { useContext, useRef } from "react";
+import classes from './form.module.css';
+import { ToDosContext } from "../store/storeTodos";
 
-export const FormTR : React.FC<{addToDo : ( text : string ) => void}> = props =>{
-    const inputRef = useRef<HTMLInputElement>(null)
-
+const CreateForm : React.FC = () =>{
+    const inputRef = useRef<HTMLInputElement>(null);
+    const ctxContext = useContext(ToDosContext)
     function handleSubmit (e : React.FormEvent){
         e.preventDefault();
         if(inputRef.current!.value){
             let enteredText = inputRef.current!.value;
-            props.addToDo(enteredText);
+            ctxContext.addToDo(enteredText);
             inputRef.current!.value = '';
         }
     }
@@ -19,3 +20,4 @@ export const FormTR : React.FC<{addToDo : ( text : string ) => void}> = props =>
         </form>
     )
 }
+export default CreateForm;

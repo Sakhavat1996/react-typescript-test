@@ -1,18 +1,11 @@
 import './App.css'
 import ToDos from './components/Layout';
-import ToDo from './models/ToDo';
+import TodosContextProvider from './store/storeTodos';
 function App() {
-  let a : string ;
-  a = 'sadsda';
-  console.log(a);
-  const elements  = [
-    new ToDo('Baku'),
-    new ToDo('Sumgait')
-  ]
   return (
-    <>
-      <ToDos items={elements}/>
-    </>
+    <TodosContextProvider>
+      <ToDos/>
+    </TodosContextProvider>
   )
 }
 

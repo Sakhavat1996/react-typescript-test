@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import Row from "./Item";
-import uniqid from 'uniqid'
-import { FormTR } from "./createForm";
+import { ToDosContext } from "../store/storeTodos";
+import CreateForm from "./CreateForm";
 import classes from './ToDos.module.css'
 
 interface User {
@@ -13,9 +13,9 @@ interface Props {
   items: User[];
 }
 
-const ToDos: React.FC<Props> = props => {
+const ToDos: React.FC = () => {
   // const items = [new ToDo('Click') , new ToDo('update')]
-  const [items, setItems] = useState<User[]>([]);
+  const ctxContext = useContext(ToDosContext)
 
   // function identity<Type>(arg: Type): Type {
   //   return arg;
@@ -36,43 +36,19 @@ const ToDos: React.FC<Props> = props => {
   }
     */
 
-  // Add User
-  function clickUpdate(text: string){
-    setItems(()=>(
-      [...items , {id: uniqid() , text}]
-    ))
-  }
-
-  // Remove User
-  function deleteItem(deleteID:string){
-    setItems(prev=>(
-      prev.filter(item=>item.id !== deleteID)
-    ))
-  }
+ 
   return (
     <div className={classes.layout}>
-        {
-        /* <form action="" onSubmit={handleSubmit}>
-              <label htmlFor="">AD</label>
-              <input 
-                type="text"
-                onChange={(e)=>setUser(prev=>{
-                  return (
-                    {
-                      ...prev,
-                      id : uniqid() ,
-                      text: e.target.value
-                    }
-                  )
-                })}
-                value={user.text}
-                placeholder="Daxil et"
-                />
-        </form> */
-        }
-      <FormTR addToDo={clickUpdate}/>
+      <CreateForm />
       <ul className={classes.items}>
-        {items.map(item => <Row onDelete={deleteItem} key={item.id} id={item.id} text={item.text} />)}
+        {ctxContext.items.map((item) => (
+          <Row
+            onDelete={ctxContext.removeToDo}
+            key={item.id}
+            id={item.id}
+            text={item.text}
+          />
+        ))}
       </ul>
     </div>
   );
